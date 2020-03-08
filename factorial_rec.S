@@ -15,6 +15,7 @@
 .section .text
   _start:
   calculate_factorial:
+    # gcc calling convention
     pushq %rbp # save current base pointer
     movq %rsp, %rbp # prepare stack frame
     pushq NUMBER # pass argument to function
@@ -27,14 +28,16 @@
     movq $SYS_exit, %rax
     syscall
 
+  .type factorial_function, @function
   factorial_function:    
     movq -8(%rbp), %rax # store passed value
 
     cmpq $1, %rax
-    je factorial_function_end
+    je _factorial_function_end
 
     decq %rax # prepare value for recurrent call
 
+    # gcc calling convention
     # call factorial_fuction again
     pushq %rbp
     movq %rsp, %rbp
@@ -45,5 +48,5 @@
 
     mulq -8(%rbp)
 
-    factorial_function_end:
+    _factorial_function_end:
       ret
