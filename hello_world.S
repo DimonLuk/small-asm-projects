@@ -1,4 +1,5 @@
 #include <sys/syscall.h>
+#include "functions/malloc.S"
 
 .section .data
   MESSAGE:
@@ -15,6 +16,12 @@
 .section .text
 
   _start:
+  pushq %rbp
+  movq %rsp, %rbp 
+  pushq 8
+  call allocate_memory
+  mov %rbp, %rsp
+  popq %rbp
   print_message:
     movq $SYS_write, %rax
     movq STDOUT, %rdi
