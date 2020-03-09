@@ -1,5 +1,4 @@
 #include <sys/syscall.h>
-#include "functions/malloc.S"
 
 .section .data
   MESSAGE:
@@ -11,11 +10,11 @@
   NORMAL_EXIT_STATUS:
     .quad 0
 
-.globl _start
+.globl main
 
 .section .text
 
-  _start:
+  main:
   pushq %rbp
   movq %rsp, %rbp 
   pushq 8

@@ -3,7 +3,7 @@
 
 .section .data
   BRK:
-    .quad 45
+    .quad 12
 
 
 .section .bss
